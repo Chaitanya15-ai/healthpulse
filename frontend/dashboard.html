@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | HealthPulse</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">♥</span>
+            HealthPulse
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="survey.html">Take Survey</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+        </div>
+
+    </nav>
+
+
+    <!-- DASHBOARD -->
+    <main class="dashboard-page">
+
+        <!-- HEADER -->
+        <section class="dashboard-header">
+
+            <div>
+                <span class="dashboard-label">COMMUNITY HEALTH ANALYTICS</span>
+
+                <h1>Health Dashboard</h1>
+
+                <p>
+                    Explore health patterns and community-level insights
+                    collected through the HealthPulse survey and historical
+                    NFHS 2019–21 data.
+                </p>
+            </div>
+
+            <button id="refreshBtn" class="btn btn-primary">
+                ↻ Refresh Data
+            </button>
+
+        </section>
+
+
+        <!-- ==========================================
+             HEALTHPULSE SURVEY
+        =========================================== -->
+
+        <section class="data-source-heading">
+            <span class="source-badge current-badge">CURRENT PROJECT DATA</span>
+            <h2>HealthPulse Community Survey</h2>
+            <p>
+                Statistics calculated from responses collected through this project.
+            </p>
+        </section>
+
+
+        <!-- STAT CARDS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+
+                <div>
+                    <p>Total Respondents</p>
+                    <h2 id="totalRespondents">0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">🎂</div>
+
+                <div>
+                    <p>Average Age</p>
+                    <h2 id="averageAge">0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">⚖</div>
+
+                <div>
+                    <p>Average BMI</p>
+                    <h2 id="averageBMI">0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">🩺</div>
+
+                <div>
+                    <p>Diabetes Cases</p>
+                    <h2 id="diabetesCount">0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">❤</div>
+
+                <div>
+                    <p>Hypertension Cases</p>
+                    <h2 id="hypertensionCount">0</h2>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- SURVEY CHARTS -->
+
+        <section class="dashboard-charts">
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h2>Gender Distribution</h2>
+                        <p>Survey respondents by gender</p>
+                    </div>
+                </div>
+
+                <div class="chart-container small-chart">
+                    <canvas id="genderChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h2>Health Conditions</h2>
+                        <p>Reported diabetes and hypertension</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="conditionsChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card full-chart">
+
+                <div class="card-heading">
+                    <div>
+                        <h2>Respondents by Area</h2>
+                        <p>Distribution of survey participants across localities</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="areaChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h2>Lifestyle Overview</h2>
+                        <p>Average exercise and sleep reported</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="lifestyleChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h2>Healthcare Access</h2>
+                        <p>Reported access to healthcare services</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="healthcareChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             NFHS HISTORICAL DATA
+        =========================================== -->
+
+        <section class="data-source-heading nfhs-heading">
+
+            <span class="source-badge historical-badge">
+                HISTORICAL DATASET
+            </span>
+
+            <h2>NFHS 2019–21 Benchmark</h2>
+
+            <p>
+                National Family Health Survey (NFHS) 2019–21 district-level
+                historical data used as a reference benchmark for this project.
+            </p>
+
+        </section>
+
+
+        <!-- NFHS STAT CARDS -->
+
+        <section class="nfhs-stats-grid">
+
+            <div class="nfhs-card">
+                <div class="nfhs-card-icon">📍</div>
+
+                <div>
+                    <p>Districts Covered</p>
+                    <h2 id="nfhsDistricts">0</h2>
+                    <span>NFHS 2019–21</span>
+                </div>
+            </div>
+
+
+            <div class="nfhs-card">
+                <div class="nfhs-card-icon">⚡</div>
+
+                <div>
+                    <p>Average Electricity</p>
+                    <h2 id="nfhsElectricity">0%</h2>
+                    <span>District average</span>
+                </div>
+            </div>
+
+
+            <div class="nfhs-card">
+                <div class="nfhs-card-icon">💧</div>
+
+                <div>
+                    <p>Improved Water</p>
+                    <h2 id="nfhsWater">0%</h2>
+                    <span>District average</span>
+                </div>
+            </div>
+
+
+            <div class="nfhs-card">
+                <div class="nfhs-card-icon">🚿</div>
+
+                <div>
+                    <p>Improved Sanitation</p>
+                    <h2 id="nfhsSanitation">0%</h2>
+                    <span>District average</span>
+                </div>
+            </div>
+
+
+            <div class="nfhs-card">
+                <div class="nfhs-card-icon">🌱</div>
+
+                <div>
+                    <p>Child Stunting</p>
+                    <h2 id="nfhsStunting">0%</h2>
+                    <span>District average</span>
+                </div>
+            </div>
+
+
+            <div class="nfhs-card">
+                <div class="nfhs-card-icon">🩸</div>
+
+                <div>
+                    <p>Women Anaemia</p>
+                    <h2 id="nfhsAnaemia">0%</h2>
+                    <span>District average</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- NFHS CHART -->
+
+        <section class="dashboard-card nfhs-comparison-card">
+
+            <div class="card-heading">
+
+                <div>
+                    <h2>NFHS 2019–21 Health & Living Indicators</h2>
+
+                    <p>
+                        Historical district-level averages from the NFHS 2019–21 dataset
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="chart-container nfhs-chart">
+                <canvas id="nfhsChart"></canvas>
+            </div>
+
+            <div id="nfhsMessage" class="nfhs-message">
+                Loading NFHS historical data...
+            </div>
+
+        </section>
+
+
+        <!-- RECENT RESPONSES -->
+
+        <section class="dashboard-card table-card">
+
+            <div class="card-heading">
+
+                <div>
+                    <h2>Recent Survey Responses</h2>
+
+                    <p>
+                        Latest responses collected from the community
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="tableMessage" class="table-message">
+                Loading survey data...
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table id="surveyTable">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Area</th>
+                            <th>BMI</th>
+                            <th>Diabetes</th>
+                            <th>Hypertension</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="surveyTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- NOTE -->
+
+        <div class="dashboard-note">
+
+            <strong>Important:</strong>
+
+            This dashboard presents aggregated survey information for
+            community-level analysis. NFHS 2019–21 values are historical
+            district-level benchmark data and are shown separately from
+            the HealthPulse project survey. The dashboard is not intended
+            to provide individual medical diagnosis or treatment advice.
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            ♥ HealthPulse
+        </div>
+
+        <p>
+            Community health data for better awareness and better decisions.
+        </p>
+
+        <p class="footer-copy">
+            © 2026 HealthPulse. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

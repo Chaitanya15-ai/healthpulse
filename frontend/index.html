@@ -1,0 +1,1076 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HealthPulse | Community Health Survey</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ==========================================
+           HEALTHPULSE HOME PAGE
+        ========================================== */
+
+        .home-page {
+            min-height: calc(100vh - 76px);
+        }
+
+        .home-hero {
+            width: min(1180px, 90%);
+            margin: 0 auto;
+            padding: 90px 0 70px;
+
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 13px;
+            border-radius: 30px;
+
+            background: var(--accent);
+            color: var(--primary-dark);
+
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+
+            margin-bottom: 20px;
+        }
+
+        .home-hero h1 {
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(46px, 6vw, 72px);
+            line-height: 1.02;
+            letter-spacing: -2px;
+            color: var(--text);
+            margin-bottom: 24px;
+        }
+
+        .home-hero h1 span {
+            color: #3b7767;
+        }
+
+        .hero-description {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 13px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .hero-main-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 14px 22px;
+            border-radius: 12px;
+
+            background: var(--primary);
+            color: white;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            box-shadow: 0 10px 25px rgba(22, 67, 58, 0.18);
+
+            transition: 0.2s ease;
+        }
+
+        .hero-main-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .hero-secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 14px 22px;
+            border-radius: 12px;
+
+            background: white;
+            color: var(--primary);
+
+            border: 1px solid var(--border);
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .hero-secondary-btn:hover {
+            border-color: #9fc8b8;
+            background: #f4faf7;
+        }
+
+        .hero-trust {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hero-trust-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hero-trust-item strong {
+            font-family: "Manrope", sans-serif;
+            color: var(--text);
+            font-size: 18px;
+        }
+
+        .hero-trust-item span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+
+        /* ==========================================
+           HERO VISUAL
+        ========================================== */
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .health-panel {
+            position: relative;
+
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 25px 70px rgba(22, 67, 58, 0.10);
+
+            overflow: hidden;
+        }
+
+        .health-panel::before {
+            content: "";
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            background: #e5f5ed;
+
+            top: -100px;
+            right: -80px;
+        }
+
+        .health-panel-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+        .health-panel-title {
+            font-family: "Manrope", sans-serif;
+            font-weight: 800;
+            color: var(--text);
+            font-size: 17px;
+        }
+
+        .health-panel-status {
+            padding: 6px 10px;
+            border-radius: 20px;
+
+            background: #e8f7ef;
+            color: #267152;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .health-score {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background: #f5faf7;
+
+            margin-bottom: 18px;
+        }
+
+        .score-circle {
+            width: 76px;
+            height: 76px;
+
+            border-radius: 50%;
+
+            display: grid;
+            place-items: center;
+
+            background:
+                conic-gradient(
+                    #3c806d 0deg 270deg,
+                    #dcebe5 270deg 360deg
+                );
+
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .score-circle::after {
+            content: "";
+            position: absolute;
+
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            background: white;
+        }
+
+        .score-number {
+            position: relative;
+            z-index: 2;
+
+            font-family: "Manrope", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+
+            color: var(--primary);
+        }
+
+        .score-text strong {
+            display: block;
+
+            font-family: "Manrope", sans-serif;
+            font-size: 16px;
+
+            color: var(--text);
+
+            margin-bottom: 3px;
+        }
+
+        .score-text span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .health-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .health-metric {
+            padding: 16px;
+
+            border: 1px solid var(--border);
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .metric-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 10px;
+
+            background: var(--accent);
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 9px;
+
+            font-size: 16px;
+        }
+
+        .health-metric strong {
+            display: block;
+
+            font-family: "Manrope", sans-serif;
+
+            color: var(--text);
+            font-size: 14px;
+
+            margin-bottom: 2px;
+        }
+
+        .health-metric span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+
+        /* ==========================================
+           PURPOSE SECTION
+        ========================================== */
+
+        .home-section {
+            width: min(1180px, 90%);
+            margin: 0 auto;
+            padding: 65px 0;
+        }
+
+        .section-heading {
+            max-width: 680px;
+            margin-bottom: 30px;
+        }
+
+        .section-heading-label {
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+        }
+
+        .section-heading h2 {
+            font-family: "Manrope", sans-serif;
+            font-size: 32px;
+            line-height: 1.2;
+            color: var(--text);
+            margin: 8px 0 10px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .home-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .home-card {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+
+            padding: 28px;
+
+            box-shadow: var(--shadow);
+
+            transition: 0.2s ease;
+        }
+
+        .home-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 45px rgba(22, 67, 58, 0.10);
+        }
+
+        .home-card-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 14px;
+
+            background: var(--accent);
+
+            display: grid;
+            place-items: center;
+
+            font-size: 21px;
+
+            margin-bottom: 18px;
+        }
+
+        .home-card h3 {
+            font-family: "Manrope", sans-serif;
+            color: var(--text);
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+        .home-card p {
+            color: var(--muted);
+
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* ==========================================
+           DATA SECTION
+        ========================================== */
+
+        .data-section {
+            background: #eef6f2;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-content {
+            width: min(1180px, 90%);
+            margin: 0 auto;
+
+            padding: 65px 0;
+
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .data-content h2 {
+            font-family: "Manrope", sans-serif;
+
+            font-size: 32px;
+            line-height: 1.2;
+
+            color: var(--text);
+
+            margin: 8px 0 15px;
+        }
+
+        .data-content p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .data-points {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .data-point {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 16px;
+
+            padding: 20px;
+
+            box-shadow: 0 8px 25px rgba(22, 67, 58, 0.04);
+        }
+
+        .data-point strong {
+            display: block;
+
+            font-family: "Manrope", sans-serif;
+
+            color: var(--primary);
+            font-size: 22px;
+
+            margin-bottom: 3px;
+        }
+
+        .data-point span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+
+        /* ==========================================
+           FINAL CTA
+        ========================================== */
+
+        .home-cta {
+            width: min(1180px, 90%);
+            margin: 0 auto;
+
+            padding: 70px 0;
+        }
+
+        .cta-box {
+            background: var(--primary);
+
+            border-radius: 25px;
+
+            padding: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            box-shadow: 0 20px 55px rgba(22, 67, 58, 0.15);
+        }
+
+        .cta-box h2 {
+            font-family: "Manrope", sans-serif;
+
+            color: white;
+
+            font-size: 30px;
+            line-height: 1.2;
+
+            margin-bottom: 8px;
+        }
+
+        .cta-box p {
+            color: rgba(255,255,255,0.7);
+
+            font-size: 13px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            white-space: nowrap;
+
+            padding: 14px 22px;
+
+            border-radius: 12px;
+
+            background: white;
+            color: var(--primary);
+
+            font-weight: 800;
+            font-size: 13px;
+
+            transition: 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: #f1faf6;
+        }
+
+
+        /* ==========================================
+           HOME RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 900px) {
+
+            .home-hero {
+                grid-template-columns: 1fr;
+                gap: 45px;
+                padding-top: 65px;
+            }
+
+            .hero-visual {
+                max-width: 620px;
+            }
+
+            .data-content {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .home-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .home-hero {
+                width: 92%;
+            }
+
+            .home-hero h1 {
+                font-size: 44px;
+                letter-spacing: -1px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .home-section,
+            .data-content,
+            .home-cta {
+                width: 92%;
+            }
+
+            .home-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .data-points {
+                grid-template-columns: 1fr;
+            }
+
+            .health-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 30px;
+            }
+
+            .cta-box h2 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ==========================================
+         NAVBAR
+    ========================================== -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">♥</span>
+            HealthPulse
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html" class="active">
+                Home
+            </a>
+
+            <a href="survey.html">
+                Take Survey
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="home-page">
+
+
+        <!-- ==========================================
+             HERO
+        ========================================== -->
+
+        <section class="home-hero">
+
+            <div class="hero-content">
+
+                <div class="hero-eyebrow">
+                    ♥ Community Health Initiative
+                </div>
+
+                <h1>
+                    Better Data.<br>
+                    <span>Healthier Communities.</span>
+                </h1>
+
+                <p class="hero-description">
+                    HealthPulse helps understand local health patterns,
+                    lifestyle habits and healthcare access through a
+                    simple community health survey and meaningful data
+                    analysis.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a href="survey.html" class="hero-main-btn">
+                        Take Health Survey&nbsp; →
+                    </a>
+
+                    <a href="dashboard.html" class="hero-secondary-btn">
+                        View Dashboard
+                    </a>
+
+                </div>
+
+
+                <div class="hero-trust">
+
+                    <div class="hero-trust-item">
+                        <strong>Anonymous</strong>
+                        <span>Survey responses</span>
+                    </div>
+
+                    <div class="hero-trust-item">
+                        <strong>Community</strong>
+                        <span>Focused insights</span>
+                    </div>
+
+                    <div class="hero-trust-item">
+                        <strong>Data Driven</strong>
+                        <span>Health analysis</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="hero-visual">
+
+                <div class="health-panel">
+
+                    <div class="health-panel-header">
+
+                        <div class="health-panel-title">
+                            Community Health Snapshot
+                        </div>
+
+                        <div class="health-panel-status">
+                            HEALTHPULSE
+                        </div>
+
+                    </div>
+
+
+                    <div class="health-score">
+
+                        <div class="score-circle">
+                            <span class="score-number">75%</span>
+                        </div>
+
+                        <div class="score-text">
+
+                            <strong>Health Awareness</strong>
+
+                            <span>
+                                Explore patterns through community data
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="health-metrics">
+
+                        <div class="health-metric">
+
+                            <div class="metric-icon">
+                                👥
+                            </div>
+
+                            <strong>Community</strong>
+
+                            <span>
+                                Local survey insights
+                            </span>
+
+                        </div>
+
+
+                        <div class="health-metric">
+
+                            <div class="metric-icon">
+                                📊
+                            </div>
+
+                            <strong>Analytics</strong>
+
+                            <span>
+                                Data-based patterns
+                            </span>
+
+                        </div>
+
+
+                        <div class="health-metric">
+
+                            <div class="metric-icon">
+                                💧
+                            </div>
+
+                            <strong>Environment</strong>
+
+                            <span>
+                                Water & sanitation
+                            </span>
+
+                        </div>
+
+
+                        <div class="health-metric">
+
+                            <div class="metric-icon">
+                                🏥
+                            </div>
+
+                            <strong>Healthcare</strong>
+
+                            <span>
+                                Access indicators
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             PURPOSE
+        ========================================== -->
+
+        <section class="home-section">
+
+            <div class="section-heading">
+
+                <span class="section-heading-label">
+                    WHY HEALTHPULSE
+                </span>
+
+                <h2>
+                    Turning community responses into useful insights.
+                </h2>
+
+                <p>
+                    The platform brings together survey responses and
+                    historical health indicators to make community-level
+                    health information easier to understand.
+                </p>
+
+            </div>
+
+
+            <div class="home-cards">
+
+                <div class="home-card">
+
+                    <div class="home-card-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Simple Survey
+                    </h3>
+
+                    <p>
+                        Collect information about lifestyle, health
+                        conditions, healthcare access and everyday
+                        community experiences.
+                    </p>
+
+                </div>
+
+
+                <div class="home-card">
+
+                    <div class="home-card-icon">
+                        📈
+                    </div>
+
+                    <h3>
+                        Meaningful Analytics
+                    </h3>
+
+                    <p>
+                        Transform collected responses into clear
+                        statistics and visual charts that reveal
+                        useful health patterns.
+                    </p>
+
+                </div>
+
+
+                <div class="home-card">
+
+                    <div class="home-card-icon">
+                        🏥
+                    </div>
+
+                    <h3>
+                        Historical Context
+                    </h3>
+
+                    <p>
+                        Use NFHS 2019–21 district-level data as a
+                        historical reference for broader community
+                        health analysis.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             DATA SECTION
+        ========================================== -->
+
+        <section class="data-section">
+
+            <div class="data-content">
+
+                <div>
+
+                    <span class="section-heading-label">
+                        DATA & INSIGHTS
+                    </span>
+
+                    <h2>
+                        Understand health beyond individual responses.
+                    </h2>
+
+                    <p>
+                        HealthPulse presents aggregated information
+                        through an easy-to-read dashboard. Current
+                        survey responses are kept separate from the
+                        historical NFHS 2019–21 dataset so that each
+                        source retains its proper context.
+                    </p>
+
+                </div>
+
+
+                <div class="data-points">
+
+                    <div class="data-point">
+
+                        <strong>Live Project</strong>
+
+                        <span>
+                            Current survey responses stored securely
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-point">
+
+                        <strong>706</strong>
+
+                        <span>
+                            NFHS 2019–21 districts represented
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-point">
+
+                        <strong>5+</strong>
+
+                        <span>
+                            Key community health indicators
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-point">
+
+                        <strong>Visual</strong>
+
+                        <span>
+                            Easy-to-understand charts and summaries
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             CTA
+        ========================================== -->
+
+        <section class="home-cta">
+
+            <div class="cta-box">
+
+                <div>
+
+                    <h2>
+                        Your response can help build the picture.
+                    </h2>
+
+                    <p>
+                        Take the community health survey and contribute
+                        to the HealthPulse project.
+                    </p>
+
+                </div>
+
+                <a href="survey.html" class="cta-button">
+                    Start Survey&nbsp; →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            ♥ HealthPulse
+        </div>
+
+        <p>
+            Community health data for better awareness and better decisions.
+        </p>
+
+        <p class="footer-copy">
+            © 2026 HealthPulse. All rights reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
